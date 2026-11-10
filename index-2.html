@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wasim Sheikh | Portfolio</title>
+<meta name="description" content="Wasim Sheikh - Apps, Books, Simulations, Writings and more. Explore my work.">
+<meta name="keywords" content="Wasim Sheikh, portfolio, apps, books, simulation, blog, poems">
+<meta name="author" content="Wasim Sheikh">
+<meta property="og:title" content="Wasim Sheikh | Portfolio">
+<meta property="og:description" content="Apps, Books, Simulations, Writings and more.">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+:root{--accent:#2dd4bf;--bg:#0a0f1a;--card:#111827;--border:#1e293b}
+*{box-sizing:border-box}
+body{font-family:'Inter','Hind Siliguri',sans-serif;background:var(--bg);color:#e2e8f0;margin:0}
+body.lang-bn{font-family:'Hind Siliguri','Inter',sans-serif}
+.accent{color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--border);transition:all .25s}
+.card:hover{border-color:rgba(45,212,191,.35);transform:translateY(-3px)}
+.btn-primary{background:#f59e0b;color:#0a0f1a;font-weight:600}
+.btn-primary:hover{background:#fbbf24}
+.btn-outline{border:1.5px solid #475569}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-teal{background:#0d9488;color:#fff}
+.btn-teal:hover{background:#14b8a6}
+.mobile-menu{transform:translateX(100%);transition:transform .3s ease}
+.mobile-menu.open{transform:translateX(0)}
+.lang-btn.active{background:var(--accent);color:#0a0f1a}
+.admin-drawer{transform:translateX(100%);transition:transform .3s ease}
+.admin-drawer.open{transform:translateX(0)}
+.quote-card{border-left:3px solid var(--accent)}
+.book-cover{aspect-ratio:2/3;background:linear-gradient(145deg,#1e293b,#0f172a);border-radius:4px 8px 8px 4px;box-shadow:4px 4px 12px rgba(0,0,0,.4);position:relative;overflow:hidden}
+.book-cover::after{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(90deg,rgba(0,0,0,.3),transparent)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
+.fade-in{animation:fadeIn .3s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.modal-bg{background:rgba(0,0,0,.8);backdrop-filter:blur(6px)}
+.prose-content{line-height:1.8;white-space:pre-wrap}
+.preview-frame{width:100%;height:70vh;border:none;border-radius:12px;background:#fff}
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1a]/95 backdrop-blur border-b border-[#1e293b]">
+<div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+<a href="#home" class="text-lg font-bold tracking-tight"><span id="navFirst">WASIM</span><span class="accent" id="navLast">SHEIKH</span></a>
+<div class="hidden md:flex items-center gap-7 text-sm text-slate-400">
+<a href="#about" class="hover:text-white transition" data-i18n="nav_about">About</a>
+<a href="#content" class="hover:text-white transition" data-i18n="nav_work">Work</a>
+<a href="#blog" class="hover:text-white transition" data-i18n="nav_blog">Blog</a>
+<a href="#social" class="hover:text-white transition" data-i18n="nav_connect">Connect</a>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex bg-[#111827] rounded-md p-0.5 border border-[#1e293b]">
+<button onclick="setLang('bn')" id="btnBn" class="lang-btn px-2 py-0.5 text-xs rounded">বাং</button>
+<button onclick="setLang('en')" id="btnEn" class="lang-btn px-2 py-0.5 text-xs rounded active">EN</button>
+</div>
+<button onclick="openLogin()" id="loginBtn" class="text-xs px-2.5 py-1 rounded border border-[#1e293b] hover:border-teal-500/50"><i class="fas fa-user mr-1"></i><span data-i18n="login">Login</span></button>
+<div id="userBadge" class="hidden text-xs px-2.5 py-1 rounded bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center gap-1">
+<i class="fas fa-check-circle"></i><span id="userName">guest</span>
+<button onclick="logout()" class="ml-1 opacity-70 hover:opacity-100"><i class="fas fa-sign-out-alt"></i></button>
+</div>
+<button onclick="toggleAdmin()" class="text-xs px-2.5 py-1 rounded bg-teal-600/20 border border-teal-500/40 text-teal-400"><i class="fas fa-cog"></i></button>
+<button onclick="toggleMobileMenu()" class="md:hidden p-1.5 text-slate-400"><i class="fas fa-bars text-lg" id="menuIcon"></i></button>
+</div>
+</div>
+</nav>
+
+<div id="mobileMenu" class="mobile-menu fixed top-14 right-0 bottom-0 w-64 bg-[#0f172a] border-l border-[#1e293b] z-40 p-6 md:hidden">
+<div class="flex flex-col gap-4 text-slate-300">
+<a href="#about" onclick="toggleMobileMenu()" class="py-2 border-b border-[#1e293b]" data-i18n="nav_about">About</a>
+<a href="#content" onclick="toggleMobileMenu()" class="py-2 border-b border-[#1e293b]" data-i18n="nav_work">Work</a>
+<a href="#blog" onclick="toggleMobileMenu()" class="py-2 border-b border-[#1e293b]" data-i18n="nav_blog">Blog</a>
+<a href="#social" onclick="toggleMobileMenu()" class="py-2 border-b border-[#1e293b]" data-i18n="nav_connect">Connect</a>
+<button onclick="toggleAdmin();toggleMobileMenu()" class="mt-4 btn-primary w-full py-2.5 rounded-lg text-sm">Admin</button>
+</div>
+</div>
+
+<section id="home" class="min-h-screen flex items-center pt-20 pb-16 px-4">
+<div class="max-w-5xl mx-auto w-full text-center">
+<div class="mb-6"><img id="profileImg" src="" alt="" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-teal-500/40 hidden"></div>
+<h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none mb-4">
+<span id="heroFirst">WASIM</span><br><span class="accent" id="heroLast">SHEIKH</span>
+</h1>
+<p class="text-lg sm:text-xl text-slate-300 max-w-xl mx-auto mb-2" id="heroTagline">Builder of apps, books & systems that ship.</p>
+<p class="text-sm text-slate-500 max-w-md mx-auto mb-8" id="heroSub">Practical tools. Clear documentation. Real results.</p>
+<div id="certBadge" class="inline-block mb-8 px-4 py-2.5 rounded-lg bg-[#1e293b]/80 border border-[#334155] text-sm text-slate-300 hidden">
+<span id="certText"></span><a id="certLink" href="#" target="_blank" class="accent ml-2 hover:underline">Verify</a>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+<a href="#social" class="btn-primary px-8 py-3 rounded-lg text-sm flex items-center gap-2"><i class="fab fa-linkedin"></i> <span data-i18n="connect_btn">Connect with me</span></a>
+<a href="#content" class="btn-outline px-8 py-3 rounded-lg text-sm" data-i18n="see_work">See Work</a>
+</div>
+<div class="flex justify-center gap-8 mt-12 flex-wrap" id="statsBar"></div>
+</div>
+</section>
+
+<section id="about" class="py-16 px-4 border-t border-[#1e293b]">
+<div class="max-w-3xl mx-auto">
+<p class="text-xs tracking-widest text-slate-500 uppercase mb-3" data-i18n="about_label">About</p>
+<h2 class="text-2xl sm:text-3xl font-bold mb-6" id="aboutTitle">Building things that actually work</h2>
+<p class="text-slate-400 leading-relaxed mb-8" id="aboutText">I create applications, write books, produce documentation and build simulation tools.</p>
+<div class="quote-card card rounded-xl p-5">
+<p class="text-slate-300 italic text-sm sm:text-base leading-relaxed" id="quoteText">"Brief AI like a sharp intern — give it context, constraints, and clear expectations."</p>
+<p class="text-xs text-slate-500 mt-3" id="quoteAuthor">— Personal note</p>
+</div>
+</div>
+</section>
+
+<div id="content" class="border-t border-[#1e293b]"></div>
+
+<section id="blog" class="py-16 px-4 border-t border-[#1e293b]">
+<div class="max-w-5xl mx-auto">
+<p class="text-xs tracking-widest text-slate-500 uppercase mb-1" data-i18n="blog_label">Writings</p>
+<h2 class="text-2xl font-bold mb-2" data-i18n="blog_title">Blog, Poems & Stories</h2>
+<p class="text-slate-500 text-sm mb-8" data-i18n="blog_desc">Read online or download as PDF</p>
+<div id="blogGrid" class="grid sm:grid-cols-2 gap-4"></div>
+<div id="blogEmpty" class="text-center py-12 text-slate-600 text-sm hidden" data-i18n="no_items">Nothing added yet</div>
+</div>
+</section>
+
+<section id="social" class="py-16 px-4 border-t border-[#1e293b]">
+<div class="max-w-3xl mx-auto">
+<p class="text-xs tracking-widest text-slate-500 uppercase mb-3" data-i18n="follow_label">Follow the work</p>
+<div class="grid sm:grid-cols-2 gap-3" id="socialLinks"></div>
+</div>
+</section>
+
+<footer class="py-8 px-4 border-t border-[#1e293b] text-center">
+<p class="text-slate-600 text-xs" id="footerText">© 2026 Wasim Sheikh</p>
+</footer>
+
+<!-- ADMIN -->
+<div id="adminDrawer" class="admin-drawer fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#0f172a] border-l border-[#1e293b] z-[60] overflow-y-auto">
+<div class="p-5">
+<div class="flex items-center justify-between mb-5">
+<h2 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-cog accent"></i> Admin</h2>
+<button onclick="toggleAdmin()" class="p-1.5 hover:bg-white/10 rounded"><i class="fas fa-times"></i></button>
+</div>
+<div class="flex gap-1 mb-5 bg-[#111827] rounded-lg p-1">
+<button onclick="adminTab('profile')" id="tabProfile" class="flex-1 py-1.5 text-xs rounded-md bg-teal-600 text-white">Profile</button>
+<button onclick="adminTab('content')" id="tabContent" class="flex-1 py-1.5 text-xs rounded-md text-slate-400">Content</button>
+<button onclick="adminTab('blog')" id="tabBlog" class="flex-1 py-1.5 text-xs rounded-md text-slate-400">Blog</button>
+<button onclick="adminTab('social')" id="tabSocial" class="flex-1 py-1.5 text-xs rounded-md text-slate-400">Social</button>
+</div>
+
+<div id="panelProfile" class="space-y-3">
+<div class="grid grid-cols-2 gap-2">
+<input id="inFirst" class="px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="First Name">
+<input id="inLast" class="px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Last Name">
+</div>
+<input id="inTagline" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Tagline">
+<input id="inSub" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Subtitle">
+<textarea id="inAbout" rows="2" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm resize-none" placeholder="About text"></textarea>
+<input id="inAboutTitle" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="About section title">
+<input id="inQuote" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Quote">
+<input id="inQuoteAuthor" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Quote author">
+<input id="inCert" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Certificate text">
+<input id="inCertUrl" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Certificate URL">
+<div class="border border-dashed border-[#334155] rounded-lg p-3 text-center">
+<input type="file" id="profilePhotoInput" accept="image/*" class="hidden" onchange="handleProfilePhoto(event)">
+<button onclick="document.getElementById('profilePhotoInput').click()" class="text-sm text-slate-400 hover:text-teal-400"><i class="fas fa-camera text-xl mb-1 block"></i> Profile Photo</button>
+<div id="profilePhotoPreview" class="mt-2 hidden"><img id="profilePhotoThumb" class="w-16 h-16 rounded-full mx-auto object-cover"></div>
+</div>
+<button onclick="saveProfile()" class="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded-lg text-sm font-medium">Save Profile</button>
+</div>
+
+<div id="panelContent" class="hidden space-y-3">
+<p class="text-xs text-slate-500">Categories</p>
+<div class="flex gap-2">
+<input id="newCatName" class="flex-1 px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="New category">
+<button onclick="addCategory()" class="px-3 py-2 bg-teal-600 rounded-lg text-sm"><i class="fas fa-plus"></i></button>
+</div>
+<div id="catList" class="space-y-1 max-h-20 overflow-y-auto mb-3"></div>
+<p class="text-xs text-slate-500 mt-2">Add Item</p>
+<select id="itemCat" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm"></select>
+<input id="itemTitle" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Title">
+<textarea id="itemDesc" rows="2" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm resize-none" placeholder="Short description"></textarea>
+<textarea id="itemDetail" rows="3" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm resize-none" placeholder="Detailed description (for Read view)"></textarea>
+<div class="border border-dashed border-[#334155] rounded-lg p-3 text-center">
+<input type="file" id="itemCover" accept="image/*" class="hidden" onchange="handleCover(event)">
+<button onclick="document.getElementById('itemCover').click()" class="text-xs text-slate-400 hover:text-teal-400"><i class="fas fa-image mr-1"></i> Cover Image</button>
+<div id="coverInfo" class="text-xs text-teal-400 mt-1 hidden"></div>
+</div>
+<div class="border border-dashed border-[#334155] rounded-lg p-3 text-center">
+<input type="file" id="itemFile" class="hidden" onchange="handleFile(event)">
+<button onclick="document.getElementById('itemFile').click()" class="text-xs text-slate-400 hover:text-teal-400"><i class="fas fa-cloud-upload-alt mr-1"></i> Upload File (PDF/DOCX/HTML/ZIP)</button>
+<p class="text-[10px] text-slate-600 mt-1">Max ~4MB. HTML can be previewed live.</p>
+<div id="fileInfo" class="text-xs text-teal-400 mt-1 hidden"></div>
+</div>
+<input id="itemLink" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Or external URL">
+<div class="flex flex-wrap gap-3 text-xs">
+<label class="flex items-center gap-1"><input type="checkbox" id="itemDL" checked class="accent-teal-500"> Download</label>
+<label class="flex items-center gap-1"><input type="checkbox" id="itemRead" checked class="accent-teal-500"> Read/Preview</label>
+<label class="flex items-center gap-1"><input type="checkbox" id="itemLogin" checked class="accent-teal-500"> Need Login</label>
+</div>
+<button onclick="addItem()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm font-medium"><i class="fas fa-plus mr-1"></i> Add Item</button>
+<p class="text-xs text-slate-500 mt-3">Manage</p>
+<div id="manageList" class="space-y-1 max-h-36 overflow-y-auto"></div>
+</div>
+
+<div id="panelBlog" class="hidden space-y-3">
+<input id="blogTitle" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Title (poem/story/article)">
+<select id="blogType" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm">
+<option value="poem">Poem / কবিতা</option>
+<option value="story">Story / গল্প</option>
+<option value="article">Article / প্রবন্ধ</option>
+</select>
+<textarea id="blogContent" rows="8" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm resize-none" placeholder="Write full text here..."></textarea>
+<div class="flex gap-3 text-xs">
+<label class="flex items-center gap-1"><input type="checkbox" id="blogDL" checked class="accent-teal-500"> Allow Download</label>
+<label class="flex items-center gap-1"><input type="checkbox" id="blogLogin" class="accent-teal-500"> Need Login</label>
+</div>
+<button onclick="addBlog()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm font-medium"><i class="fas fa-plus mr-1"></i> Publish</button>
+<div id="blogManage" class="space-y-1 max-h-40 overflow-y-auto mt-3"></div>
+</div>
+
+<div id="panelSocial" class="hidden space-y-3">
+<input id="inLinkedin" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="LinkedIn URL">
+<input id="inGithub" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="GitHub URL">
+<input id="inTwitter" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="X / Twitter URL">
+<input id="inSubstack" class="w-full px-3 py-2 bg-[#111827] border border-[#1e293b] rounded-lg text-sm" placeholder="Substack / Blog URL">
+<button onclick="saveSocial()" class="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded-lg text-sm font-medium">Save Social</button>
+<div class="pt-4 border-t border-[#1e293b] space-y-2 mt-4">
+<button onclick="exportData()" class="w-full py-2 card rounded-lg text-sm"><i class="fas fa-download mr-1"></i> Export Backup</button>
+<button onclick="document.getElementById('importFile').click()" class="w-full py-2 card rounded-lg text-sm"><i class="fas fa-upload mr-1"></i> Import Backup</button>
+<input type="file" id="importFile" accept=".json" class="hidden" onchange="handleImport(event)">
+<button onclick="clearData()" class="w-full py-2 text-red-400/70 text-sm"><i class="fas fa-trash mr-1"></i> Clear All</button>
+</div>
+<div class="p-3 rounded-lg bg-[#111827] border border-[#1e293b] text-xs text-slate-500 mt-2">Storage: <span id="storageUsed" class="text-teal-400">0 KB</span> / ~5 MB</div>
+</div>
+</div>
+</div>
+<div id="overlay" class="fixed inset-0 bg-black/60 z-[55] hidden" onclick="toggleAdmin()"></div>
+
+<div id="readModal" class="fixed inset-0 z-[70] hidden modal-bg flex items-center justify-center p-4">
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col fade-in">
+<div class="flex items-center justify-between p-4 border-b border-[#1e293b]">
+<h3 id="readTitle" class="font-bold text-sm truncate"></h3>
+<button onclick="closeRead()" class="p-1.5 hover:bg-white/10 rounded"><i class="fas fa-times"></i></button>
+</div>
+<div id="readBody" class="p-5 overflow-y-auto flex-1 text-sm text-slate-300 prose-content"></div>
+<div id="readActions" class="p-4 border-t border-[#1e293b] flex gap-2"></div>
+</div>
+</div>
+
+<div id="appModal" class="fixed inset-0 z-[70] hidden modal-bg flex items-center justify-center p-3">
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col fade-in">
+<div class="flex items-center justify-between p-3 border-b border-[#1e293b]">
+<h3 id="appTitle" class="font-bold text-sm truncate"></h3>
+<div class="flex gap-2">
+<button onclick="openAppNewTab()" class="text-xs px-2 py-1 rounded border border-[#334155] hover:border-teal-500">New Tab</button>
+<button onclick="closeApp()" class="p-1.5 hover:bg-white/10 rounded"><i class="fas fa-times"></i></button>
+</div>
+</div>
+<iframe id="appFrame" class="preview-frame flex-1" sandbox="allow-scripts allow-same-origin"></iframe>
+</div>
+</div>
+
+<div id="loginModal" class="fixed inset-0 z-[70] hidden modal-bg flex items-center justify-center p-4">
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-2xl w-full max-w-sm p-6 fade-in">
+<div class="flex justify-between items-center mb-4"><h3 class="font-bold">Login</h3><button onclick="closeLogin()"><i class="fas fa-times text-slate-500"></i></button></div>
+<p class="text-xs text-slate-500 mb-4">Demo: guest / guest123</p>
+<input id="loginUser" class="w-full px-3 py-2.5 bg-[#111827] border border-[#1e293b] rounded-lg text-sm mb-2" value="guest">
+<input id="loginPass" type="password" class="w-full px-3 py-2.5 bg-[#111827] border border-[#1e293b] rounded-lg text-sm mb-3" value="guest123">
+<button onclick="doLogin()" class="w-full py-2.5 bg-teal-600 hover:bg-teal-500 rounded-lg text-sm font-medium">Login</button>
+</div>
+</div>
+
+<div id="toast" class="fixed bottom-5 right-5 px-4 py-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-sm transform translate-y-16 opacity-0 transition-all z-[80] flex items-center gap-2">
+<i class="fas fa-check-circle text-teal-400"></i><span id="toastMsg">Done</span>
+</div>
+
+<script>
+const i18n={bn:{nav_about:"আমার সম্পর্কে",nav_work:"কাজ",nav_blog:"ব্লগ",nav_connect:"যোগাযোগ",login:"লগইন",connect_btn:"যোগাযোগ করুন",see_work:"কাজ দেখুন",about_label:"আমার সম্পর্কে",follow_label:"ফলো করুন",blog_label:"লেখালেখি",blog_title:"ব্লগ, কবিতা ও গল্প",blog_desc:"অনলাইনে পড়ুন বা ডাউনলোড করুন",no_items:"এখনো কিছু যোগ হয়নি",download:"ডাউনলোড",read:"পড়ুন",preview:"প্রিভিউ",locked:"লকড",need_login:"লগইন প্রয়োজন",dl_on:"চালু",dl_off:"বন্ধ"},en:{nav_about:"About",nav_work:"Work",nav_blog:"Blog",nav_connect:"Connect",login:"Login",connect_btn:"Connect with me",see_work:"See Work",about_label:"About",follow_label:"Follow the work",blog_label:"Writings",blog_title:"Blog, Poems & Stories",blog_desc:"Read online or download",no_items:"Nothing added yet",download:"Download",read:"Read",preview:"Preview",locked:"Locked",need_login:"Login Required",dl_on:"On",dl_off:"Off"}};
+let lang=localStorage.getItem('pLang')||'en',loggedIn=localStorage.getItem('pLogged')==='true',user=localStorage.getItem('pUser')||'',pendingFile=null,pendingCover=null,currentAppData=null;
+const DEFAULT={profile:{first:"WASIM",last:"SHEIKH",tagline:"Builder of apps, books & systems that ship.",sub:"Practical tools. Clear documentation. Real results.",about:"I create applications, write books, produce documentation and build simulation tools.",aboutTitle:"Building things that actually work",quote:"Brief AI like a sharp intern — give it context, constraints, and clear expectations.",quoteAuthor:"— Personal note",cert:"",certUrl:"",photo:""},social:{linkedin:"",github:"",twitter:"",substack:""},categories:[{id:"work",name:"Work / Apps"},{id:"books",name:"Books"},{id:"docs",name:"Documents"},{id:"sims",name:"Simulations"}],items:{work:[],books:[],docs:[],sims:[]},blog:[]};
+let saved=null;try{saved=JSON.parse(localStorage.getItem('pDataV4')||localStorage.getItem('pDataV3')||'null')}catch(e){}
+let data=saved?Object.assign(structuredClone(DEFAULT),saved):structuredClone(DEFAULT);
+if(!data.blog)data.blog=[];if(!data.categories)data.categories=DEFAULT.categories;
+data.categories.forEach(c=>{if(!data.items[c.id])data.items[c.id]=[]});
+if(data.profile&&!data.profile.photo)data.profile.photo="";
+
+function init(){setLang(lang,false);renderAll();updateLoginUI();updateStorageInfo();adminTab('profile')}
+function setLang(l,save=true){lang=l;if(save)localStorage.setItem('pLang',l);document.body.classList.toggle('lang-bn',l==='bn');document.getElementById('btnBn').classList.toggle('active',l==='bn');document.getElementById('btnEn').classList.toggle('active',l==='en');document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(i18n[l][k])el.textContent=i18n[l][k]});renderAll()}
+function save(){localStorage.setItem('pDataV4',JSON.stringify(data))}
+
+function renderAll(){
+const p=data.profile;
+document.getElementById('navFirst').textContent=p.first;document.getElementById('navLast').textContent=p.last;
+document.getElementById('heroFirst').textContent=p.first;document.getElementById('heroLast').textContent=p.last;
+document.getElementById('heroTagline').textContent=p.tagline;document.getElementById('heroSub').textContent=p.sub;
+document.getElementById('aboutTitle').textContent=p.aboutTitle;document.getElementById('aboutText').textContent=p.about;
+document.getElementById('quoteText').textContent='"'+p.quote+'"';document.getElementById('quoteAuthor').textContent=p.quoteAuthor;
+document.getElementById('footerText').textContent='© '+new Date().getFullYear()+' '+p.first+' '+p.last;
+document.title=p.first+' '+p.last+' | Portfolio';
+const img=document.getElementById('profileImg');if(p.photo){img.src=p.photo;img.classList.remove('hidden')}else img.classList.add('hidden');
+const certEl=document.getElementById('certBadge');if(p.cert){certEl.classList.remove('hidden');document.getElementById('certText').textContent=p.cert;document.getElementById('certLink').href=p.certUrl||'#'}else certEl.classList.add('hidden');
+document.getElementById('inFirst').value=p.first;document.getElementById('inLast').value=p.last;
+document.getElementById('inTagline').value=p.tagline;document.getElementById('inSub').value=p.sub;
+document.getElementById('inAbout').value=p.about;document.getElementById('inAboutTitle').value=p.aboutTitle;
+document.getElementById('inQuote').value=p.quote;document.getElementById('inQuoteAuthor').value=p.quoteAuthor;
+document.getElementById('inCert').value=p.cert;document.getElementById('inCertUrl').value=p.certUrl;
+if(p.photo){document.getElementById('profilePhotoPreview').classList.remove('hidden');document.getElementById('profilePhotoThumb').src=p.photo}
+document.getElementById('inLinkedin').value=data.social.linkedin||'';document.getElementById('inGithub').value=data.social.github||'';
+document.getElementById('inTwitter').value=data.social.twitter||'';document.getElementById('inSubstack').value=data.social.substack||'';
+renderStats();renderSections();renderBlog();renderSocial();renderCatSelect();renderCatList();renderManage();renderBlogManage()}
+
+function renderStats(){document.getElementById('statsBar').innerHTML=data.categories.map(c=>{const n=(data.items[c.id]||[]).length;return '<div class="text-center"><div class="text-xl font-bold accent">'+n+'</div><div class="text-[10px] text-slate-500">'+c.name+'</div></div>'}).join('')+'<div class="text-center"><div class="text-xl font-bold accent">'+data.blog.length+'</div><div class="text-[10px] text-slate-500">Writings</div></div>'}
+
+function renderSections(){
+const cont=document.getElementById('content');
+cont.innerHTML=data.categories.map((cat,idx)=>{
+const items=data.items[cat.id]||[];const isBook=cat.id==='books'||cat.name.toLowerCase().includes('book');
+let cards='';
+if(!items.length)cards='<div class="col-span-full text-center py-12 text-slate-600 text-sm">'+i18n[lang].no_items+'</div>';
+else cards=items.map(item=>{
+const canDL=item.download&&(item.link||item.fileData);const canRead=item.allowRead!==false&&(item.detail||item.fileData||item.link);
+const needLogin=item.requireLogin!==false;const locked=canDL&&needLogin&&!loggedIn;
+const isHTML=(item.fileType&&item.fileType.includes('html'))||(item.fileName||'').endsWith('.html');
+let btns='';
+if(canRead||isHTML){if(isHTML&&item.fileData)btns+='<button onclick="previewApp(\''+cat.id+'\','+item.id+')" class="flex-1 py-2 text-center btn-teal rounded-lg text-xs font-medium"><i class="fas fa-play mr-1"></i>'+i18n[lang].preview+'</button>';
+else if(item.detail||item.fileData)btns+='<button onclick="openRead(\''+cat.id+'\','+item.id+')" class="flex-1 py-2 text-center btn-outline rounded-lg text-xs"><i class="fas fa-book-open mr-1"></i>'+i18n[lang].read+'</button>'}
+if(canDL){if(locked)btns+='<button onclick="openLogin()" class="flex-1 py-2 text-center bg-amber-600/90 rounded-lg text-xs font-medium"><i class="fas fa-user-lock mr-1"></i>'+i18n[lang].need_login+'</button>';
+else if(item.fileData)btns+='<button onclick="downloadFile(\''+cat.id+'\','+item.id+')" class="flex-1 py-2 text-center bg-teal-600 hover:bg-teal-500 rounded-lg text-xs font-medium"><i class="fas fa-download mr-1"></i>'+i18n[lang].download+'</button>';
+else btns+='<a href="'+item.link+'" target="_blank" class="flex-1 py-2 text-center bg-teal-600 hover:bg-teal-500 rounded-lg text-xs font-medium"><i class="fas fa-download mr-1"></i>'+i18n[lang].download+'</a>'}
+else if(!canRead&&!isHTML)btns+='<button disabled class="flex-1 py-2 text-center bg-[#1e293b] text-slate-600 rounded-lg text-xs">'+i18n[lang].locked+'</button>';
+const sizeStr=item.fileSize?' · '+(item.fileSize/1024).toFixed(0)+' KB':'';
+if(isBook){return '<div class="card rounded-xl p-4 fade-in flex gap-4"><div class="book-cover w-20 flex-shrink-0 flex items-center justify-center">'+(item.cover?'<img src="'+item.cover+'" class="w-full h-full object-cover">':'<span class="text-[10px] text-slate-500 px-2 text-center leading-tight">'+item.title+'</span>')+'</div><div class="flex-1 min-w-0"><div class="flex justify-between items-start mb-1"><h3 class="font-semibold text-sm">'+item.title+'</h3><span class="text-[9px] px-1.5 py-0.5 rounded '+(item.download?'bg-teal-500/15 text-teal-400':'bg-red-500/15 text-red-400')+'">'+(item.download?i18n[lang].dl_on:i18n[lang].dl_off)+'</span></div><p class="text-slate-500 text-xs mb-1 line-clamp-2">'+(item.description||'')+'</p><p class="text-[10px] text-slate-600 mb-3">'+(item.fileName||'')+sizeStr+'</p><div class="flex gap-2">'+btns+'</div></div></div>'}
+return '<div class="card rounded-xl p-4 fade-in">'+(item.cover?'<img src="'+item.cover+'" class="w-full h-28 object-cover rounded-lg mb-3">':'')+'<div class="flex justify-between items-start mb-2"><h3 class="font-semibold text-sm">'+item.title+'</h3><span class="text-[9px] px-1.5 py-0.5 rounded '+(item.download?'bg-teal-500/15 text-teal-400':'bg-red-500/15 text-red-400')+'">'+(item.download?i18n[lang].dl_on:i18n[lang].dl_off)+'</span></div><p class="text-slate-500 text-xs mb-1 line-clamp-2">'+(item.description||'')+'</p><p class="text-[10px] text-slate-600 mb-3">'+(item.fileName||'')+sizeStr+'</p><div class="flex gap-2">'+btns+'</div></div>';
+}).join('');
+return '<section class="py-14 px-4 '+(idx%2?'bg-[#0c1220]':'')+'" id="cat-'+cat.id+'"><div class="max-w-5xl mx-auto"><p class="text-xs tracking-widest text-slate-500 uppercase mb-1">'+cat.name+'</p><div class="grid sm:grid-cols-2 '+(isBook?'':'lg:grid-cols-3')+' gap-4 mt-6">'+cards+'</div></div></section>';
+}).join('')}
+
+function renderBlog(){
+const grid=document.getElementById('blogGrid'),empty=document.getElementById('blogEmpty');
+if(!data.blog.length){grid.innerHTML='';empty.classList.remove('hidden');return}
+empty.classList.add('hidden');
+const typeIcon={poem:'fa-feather',story:'fa-book-open',article:'fa-newspaper'};
+grid.innerHTML=data.blog.map(b=>{
+const canDL=b.allowDownload,locked=canDL&&b.requireLogin&&!loggedIn;
+let dlBtn='';if(canDL){if(locked)dlBtn='<button onclick="openLogin()" class="text-xs px-3 py-1.5 rounded bg-amber-600/80">'+i18n[lang].need_login+'</button>';else dlBtn='<button onclick="downloadBlog('+b.id+')" class="text-xs px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-500"><i class="fas fa-download mr-1"></i>Download</button>'}
+return '<div class="card rounded-xl p-5 fade-in"><div class="flex items-center gap-2 mb-2"><i class="fas '+(typeIcon[b.type]||'fa-pen')+' accent text-sm"></i><span class="text-[10px] text-slate-500 uppercase">'+b.type+'</span></div><h3 class="font-semibold mb-2">'+b.title+'</h3><p class="text-slate-500 text-xs line-clamp-3 mb-4">'+b.content.substring(0,150)+'...</p><div class="flex gap-2"><button onclick="openBlogRead('+b.id+')" class="flex-1 py-2 text-center btn-outline rounded-lg text-xs"><i class="fas fa-book-open mr-1"></i>'+i18n[lang].read+'</button>'+dlBtn+'</div></div>';
+}).join('')}
+
+function renderSocial(){
+const s=data.social,links=[{key:'linkedin',icon:'fab fa-linkedin',label:'LinkedIn'},{key:'github',icon:'fab fa-github',label:'GitHub'},{key:'twitter',icon:'fab fa-x-twitter',label:'X'},{key:'substack',icon:'fas fa-bookmark',label:'Substack / Blog'}];
+document.getElementById('socialLinks').innerHTML=links.filter(l=>s[l.key]).map(l=>'<a href="'+s[l.key]+'" target="_blank" class="card rounded-xl p-4 flex items-center gap-3 hover:border-teal-500/40"><i class="'+l.icon+' accent text-lg"></i><span class="text-sm">'+l.label+'</span><i class="fas fa-arrow-up-right-from-square text-slate-600 text-xs ml-auto"></i></a>').join('')||'<p class="text-slate-600 text-sm col-span-2">Add social links from Admin → Social</p>'}
+
+function handleProfilePhoto(e){const f=e.target.files[0];if(!f)return;if(f.size>1.5*1024*1024){toast('Image max 1.5MB','error');return}const r=new FileReader();r.onload=ev=>{data.profile.photo=ev.target.result;document.getElementById('profilePhotoPreview').classList.remove('hidden');document.getElementById('profilePhotoThumb').src=ev.target.result};r.readAsDataURL(f)}
+function saveProfile(){const p=data.profile;p.first=document.getElementById('inFirst').value||'WASIM';p.last=document.getElementById('inLast').value||'SHEIKH';p.tagline=document.getElementById('inTagline').value;p.sub=document.getElementById('inSub').value;p.about=document.getElementById('inAbout').value;p.aboutTitle=document.getElementById('inAboutTitle').value;p.quote=document.getElementById('inQuote').value;p.quoteAuthor=document.getElementById('inQuoteAuthor').value;p.cert=document.getElementById('inCert').value;p.certUrl=document.getElementById('inCertUrl').value;save();renderAll();toast('Profile saved')}
+function saveSocial(){data.social.linkedin=document.getElementById('inLinkedin').value;data.social.github=document.getElementById('inGithub').value;data.social.twitter=document.getElementById('inTwitter').value;data.social.substack=document.getElementById('inSubstack').value;save();renderAll();toast('Social saved')}
+function addCategory(){const name=document.getElementById('newCatName').value.trim();if(!name)return;const id='c'+Date.now();data.categories.push({id,name});data.items[id]=[];document.getElementById('newCatName').value='';save();renderAll();toast('Category added')}
+function deleteCategory(id){if(!confirm('Delete category + items?'))return;data.categories=data.categories.filter(c=>c.id!==id);delete data.items[id];save();renderAll()}
+function renderCatList(){document.getElementById('catList').innerHTML=data.categories.map(c=>'<div class="flex justify-between items-center px-2 py-1 bg-[#111827] rounded text-xs"><span>'+c.name+'</span><button onclick="deleteCategory(\''+c.id+'\')" class="text-red-400/70"><i class="fas fa-trash"></i></button></div>').join('')}
+function renderCatSelect(){document.getElementById('itemCat').innerHTML=data.categories.map(c=>'<option value="'+c.id+'">'+c.name+'</option>').join('')}
+function handleCover(e){const f=e.target.files[0];if(!f)return;if(f.size>1*1024*1024){toast('Cover max 1MB','error');return}const r=new FileReader();r.onload=ev=>{pendingCover=ev.target.result;document.getElementById('coverInfo').classList.remove('hidden');document.getElementById('coverInfo').textContent='✓ Cover selected'};r.readAsDataURL(f)}
+function handleFile(e){const f=e.target.files[0];if(!f)return;if(f.size>4.5*1024*1024){toast('File max ~4.5MB','error');e.target.value='';return}const r=new FileReader();r.onload=ev=>{pendingFile={name:f.name,type:f.type,size:f.size,data:ev.target.result};document.getElementById('fileInfo').classList.remove('hidden');document.getElementById('fileInfo').textContent='✓ '+f.name+' ('+(f.size/1024).toFixed(0)+' KB)'};r.readAsDataURL(f)}
+function addItem(){const cat=document.getElementById('itemCat').value,title=document.getElementById('itemTitle').value.trim();if(!title){toast('Title required','error');return}const item={id:Date.now(),title,description:document.getElementById('itemDesc').value.trim(),detail:document.getElementById('itemDetail').value.trim(),link:document.getElementById('itemLink').value.trim(),download:document.getElementById('itemDL').checked,allowRead:document.getElementById('itemRead').checked,requireLogin:document.getElementById('itemLogin').checked,fileName:pendingFile?pendingFile.name:'',fileSize:pendingFile?pendingFile.size:0,fileType:pendingFile?pendingFile.type:'',fileData:pendingFile?pendingFile.data:null,cover:pendingCover||null};if(!data.items[cat])data.items[cat]=[];data.items[cat].push(item);['itemTitle','itemDesc','itemDetail','itemLink','itemFile','itemCover'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});document.getElementById('fileInfo').classList.add('hidden');document.getElementById('coverInfo').classList.add('hidden');pendingFile=null;pendingCover=null;save();renderAll();updateStorageInfo();toast('Item added')}
+function downloadFile(catId,itemId){const item=data.items[catId].find(i=>i.id===itemId);if(!item||!item.fileData)return;const a=document.createElement('a');a.href=item.fileData;a.download=item.fileName||'download';a.click()}
+function openRead(catId,itemId){const item=data.items[catId].find(i=>i.id===itemId);if(!item)return;document.getElementById('readTitle').textContent=item.title;document.getElementById('readBody').textContent=item.detail||item.description||'';const actions=document.getElementById('readActions');actions.innerHTML='';if(item.download&&item.fileData){const needLogin=item.requireLogin&&!loggedIn;if(needLogin)actions.innerHTML='<button onclick="openLogin()" class="flex-1 py-2 bg-amber-600 rounded-lg text-sm">Login to Download</button>';else actions.innerHTML='<button onclick="downloadFile(\''+catId+'\','+itemId+')" class="flex-1 py-2 bg-teal-600 rounded-lg text-sm"><i class="fas fa-download mr-1"></i>Download</button>'}document.getElementById('readModal').classList.remove('hidden')}
+function closeRead(){document.getElementById('readModal').classList.add('hidden')}
+function previewApp(catId,itemId){const item=data.items[catId].find(i=>i.id===itemId);if(!item||!item.fileData)return;currentAppData=item.fileData;document.getElementById('appTitle').textContent=item.title;fetch(item.fileData).then(r=>r.blob()).then(blob=>{const url=URL.createObjectURL(blob);document.getElementById('appFrame').src=url;document.getElementById('appModal').classList.remove('hidden')})}
+function closeApp(){document.getElementById('appModal').classList.add('hidden');document.getElementById('appFrame').src='about:blank'}
+function openAppNewTab(){if(currentAppData)window.open(currentAppData,'_blank')}
+function deleteItem(catId,itemId){data.items[catId]=data.items[catId].filter(i=>i.id!==itemId);save();renderAll();updateStorageInfo()}
+function toggleDL(catId,itemId){const item=data.items[catId].find(i=>i.id===itemId);if(item){item.download=!item.download;save();renderAll()}}
+function renderManage(){let html='',has=false;data.categories.forEach(cat=>{(data.items[cat.id]||[]).forEach(item=>{has=true;html+='<div class="flex items-center justify-between px-2 py-1.5 bg-[#111827] rounded text-xs"><div class="truncate flex-1"><span class="text-slate-500">'+cat.name+'/</span>'+item.title+'</div><div class="flex gap-1 ml-2"><button onclick="toggleDL(\''+cat.id+'\','+item.id+')" class="p-1 '+(item.download?'text-teal-400':'text-red-400')+'"><i class="fas fa-download"></i></button><button onclick="deleteItem(\''+cat.id+'\','+item.id+')" class="p-1 text-red-400/70"><i class="fas fa-trash"></i></button></div></div>'})});document.getElementById('manageList').innerHTML=has?html:'<p class="text-slate-600 text-xs text-center py-2">'+i18n[lang].no_items+'</p>'}
+function addBlog(){const title=document.getElementById('blogTitle').value.trim(),content=document.getElementById('blogContent').value.trim();if(!title||!content){toast('Title & content required','error');return}data.blog.unshift({id:Date.now(),title,type:document.getElementById('blogType').value,content,allowDownload:document.getElementById('blogDL').checked,requireLogin:document.getElementById('blogLogin').checked,date:new Date().toISOString()});document.getElementById('blogTitle').value='';document.getElementById('blogContent').value='';save();renderAll();toast('Published')}
+function deleteBlog(id){data.blog=data.blog.filter(b=>b.id!==id);save();renderAll()}
+function openBlogRead(id){const b=data.blog.find(x=>x.id===id);if(!b)return;document.getElementById('readTitle').textContent=b.title;document.getElementById('readBody').textContent=b.content;const actions=document.getElementById('readActions');if(b.allowDownload){const locked=b.requireLogin&&!loggedIn;if(locked)actions.innerHTML='<button onclick="openLogin()" class="flex-1 py-2 bg-amber-600 rounded-lg text-sm">Login to Download</button>';else actions.innerHTML='<button onclick="downloadBlog('+b.id+')" class="flex-1 py-2 bg-teal-600 rounded-lg text-sm"><i class="fas fa-download mr-1"></i>Download</button>'}else actions.innerHTML='';document.getElementById('readModal').classList.remove('hidden')}
+function downloadBlog(id){const b=data.blog.find(x=>x.id===id);if(!b)return;const content=b.title+'\n'+'='.repeat(b.title.length)+'\n\n'+b.content+'\n\n— '+data.profile.first+' '+data.profile.last;const blob=new Blob([content],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=b.title.replace(/\s+/g,'-')+'.txt';a.click()}
+function renderBlogManage(){document.getElementById('blogManage').innerHTML=data.blog.map(b=>'<div class="flex justify-between items-center px-2 py-1.5 bg-[#111827] rounded text-xs"><span class="truncate">'+b.title+'</span><button onclick="deleteBlog('+b.id+')" class="text-red-400/70"><i class="fas fa-trash"></i></button></div>').join('')||'<p class="text-slate-600 text-xs text-center py-2">No writings yet</p>'}
+function adminTab(name){['profile','content','blog','social'].forEach(t=>{document.getElementById('panel'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('hidden',t!==name);document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).className=t===name?'flex-1 py-1.5 text-xs rounded-md bg-teal-600 text-white':'flex-1 py-1.5 text-xs rounded-md text-slate-400'})}
+function openLogin(){document.getElementById('loginModal').classList.remove('hidden')}
+function closeLogin(){document.getElementById('loginModal').classList.add('hidden')}
+function doLogin(){const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value;if(u==='guest'&&p==='guest123'){loggedIn=true;user=u;localStorage.setItem('pLogged','true');localStorage.setItem('pUser',u);updateLoginUI();closeLogin();renderAll();toast('Logged in')}else toast('Wrong credentials','error')}
+function logout(){loggedIn=false;user='';localStorage.removeItem('pLogged');localStorage.removeItem('pUser');updateLoginUI();renderAll();toast('Logged out')}
+function updateLoginUI(){document.getElementById('loginBtn').classList.toggle('hidden',loggedIn);document.getElementById('userBadge').classList.toggle('hidden',!loggedIn);if(loggedIn)document.getElementById('userName').textContent=user}
+function toggleAdmin(){document.getElementById('adminDrawer').classList.toggle('open');document.getElementById('overlay').classList.toggle('hidden')}
+function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('open');const i=document.getElementById('menuIcon');i.classList.toggle('fa-bars');i.classList.toggle('fa-times')}
+function updateStorageInfo(){document.getElementById('storageUsed').textContent=(JSON.stringify(data).length/1024).toFixed(1)+' KB'}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='portfolio-backup.json';a.click();toast('Exported')}
+function handleImport(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.profile){data=Object.assign(structuredClone(DEFAULT),d);if(!data.blog)data.blog=[];save();renderAll();updateStorageInfo();toast('Imported')}else toast('Invalid','error')}catch{toast('Error','error')}};r.readAsText(f)}
+function clearData(){if(!confirm('Delete ALL data?'))return;data=structuredClone(DEFAULT);save();renderAll();updateStorageInfo();toast('Cleared')}
+function toast(msg,type='ok'){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.querySelector('i').className=type==='error'?'fas fa-exclamation-circle text-red-400':'fas fa-check-circle text-teal-400';t.classList.remove('translate-y-16','opacity-0');setTimeout(()=>t.classList.add('translate-y-16','opacity-0'),2500)}
+init();
+</script>
+</body>
+</html>
